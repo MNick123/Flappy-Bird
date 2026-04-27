@@ -15,7 +15,6 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 
-# Import your classes (make sure these files are in the same directory)
 from cudadqn import DuelingDQN as DQN  # Using Dueling for better performance
 from cudaexperience_replay import FastReplayMemory
 
@@ -29,12 +28,12 @@ class DQNTrainer:
         self.config = config
         self.use_mixed_precision = use_mixed_precision
         
-        # GPU setup - optimized for RTX 5070 Ti
+   
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        print(f"🎮 Training on: {self.device}")
+        print(f"Training on: {self.device}")
         
         if torch.cuda.is_available():
-            print(f"🚀 GPU: {torch.cuda.get_device_name(0)}")
+            print(f" GPU: {torch.cuda.get_device_name(0)}")
             torch.backends.cuda.matmul.allow_tf32 = True
             torch.backends.cudnn.allow_tf32 = True
             torch.backends.cudnn.benchmark = True
@@ -46,7 +45,7 @@ class DQNTrainer:
             import flappy_bird_gymnasium
             self.env = gym.make(config['env_id'], **config.get('env_make_params', {}))
         except:
-            print("⚠️  FlappyBird not found, using CartPole for demo")
+            print("FlappyBird not found, using CartPole for demo")
             self.env = gym.make('CartPole-v1')
         
         state_dim = self.env.observation_space.shape[0]
@@ -58,14 +57,6 @@ class DQNTrainer:
         self.policy_net = DQN(state_dim, action_dim, config['fc1_nodes']).to(self.device)
         self.target_net = DQN(state_dim, action_dim, config['fc1_nodes']).to(self.device)
         
-        # PyTorch 2.0+ compile for extra speed (disabled - requires triton)
-        # Uncomment after: pip install triton
-        # try:
-        #     self.policy_net = torch.compile(self.policy_net, mode='max-autotune')
-        #     self.target_net = torch.compile(self.target_net, mode='max-autotune')
-        #     print("✅ Model compilation enabled")
-        # except:
-        #     print("⚠️  torch.compile not available")
         print("ℹ️  Model compilation disabled (install triton to enable)")
         
         self.target_net.load_state_dict(self.policy_net.state_dict())
@@ -81,7 +72,7 @@ class DQNTrainer:
         # Mixed precision training
         self.scaler = GradScaler('cuda') if use_mixed_precision else None
         if use_mixed_precision:
-            print("✅ Mixed precision (FP16) enabled")
+            print("Mixed precision (FP16) enabled")
         
         # Experience replay
         self.memory = FastReplayMemory(
@@ -100,7 +91,7 @@ class DQNTrainer:
         self.train_steps_per_env_step = 4
         
         self.step_count = 0
-        print(f"✅ Batch size: {self.batch_size}")
+        print(f" Batch size: {self.batch_size}")
         print("="*60)
     
     @torch.no_grad()
@@ -225,7 +216,7 @@ class DQNTrainer:
                     break
         
         print("="*60)
-        print("✅ Training complete!")
+        print("Training complete!")
         return episode_rewards, losses
     
     def save(self, path='dqn_model.pth'):
@@ -237,7 +228,7 @@ class DQNTrainer:
             'step_count': self.step_count,
             'epsilon': self.epsilon,
         }, path)
-        print(f"💾 Model saved to {path}")
+        print(f" Model saved to {path}")
     
     def load(self, path='dqn_model.pth'):
         """Load model"""
@@ -245,7 +236,7 @@ class DQNTrainer:
         self.policy_net.load_state_dict(checkpoint['policy_net'])
         self.target_net.load_state_dict(checkpoint['target_net'])
         self.optimizer.load_state_dict(checkpoint['optimizer'])
-        print(f"📂 Model loaded from {path}")
+        print(f" Model loaded from {path}")
 
 
 def plot_results(rewards, losses, save_path='training_plot.png'):
@@ -283,7 +274,7 @@ def plot_results(rewards, losses, save_path='training_plot.png'):
 def main():
     """Main training function"""
     print("\n" + "="*60)
-    print("🎮 DQN Training - RTX 5070 Ti Optimized")
+    print(" DQN Training - RTX 5070 Ti Optimized")
     print("="*60 + "\n")
     
     # Create trainer with flappybird_turbo settings
