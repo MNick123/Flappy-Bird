@@ -1,0 +1,106 @@
+cartpole1:
+  env_id: CartPole-v1
+  replay_memory_size: 100000
+  mini_batch_size: 32
+  epsilon_init: 1
+  epsilon_decay: 0.9995
+  epsilon_min: 0.05
+  network_sync_rate: 10
+  learning_rate_a: 0.001
+  discount_factor_g: 0.99
+  stop_on_reward: 100000
+  fc1_nodes: 10
+
+
+flappybird2:
+ env_id: "FlappyBird-v0"
+ replay_memory_size: 100000
+ mini_batch_size: 128
+ epsilon_init: 1
+ epsilon_decay: 0.9999
+ epsilon_min: 0.05
+ network_sync_rate: 10
+ learning_rate_a: 0.0001
+ discount_factor_g: 0.99
+ stop_on_reward: 100000
+ fc1_nodes: 512
+ env_make_params:
+   use_lidar: False
+
+
+flappybird3:
+  env_id: "FlappyBird-v0"        # Gym environment
+  env_make_params: {}            # Optional, leave empty unless needed
+  learning_rate_a: 0.0005        # Slightly lower LR for stability
+  discount_factor_g: 0.99        # Standard gamma for DQN
+  network_sync_rate: 1000        # Steps before syncing target network
+  replay_memory_size: 50000      # Enough experiences for stability
+  mini_batch_size: 128           # Medium batch size, good for GPU
+  epsilon_init: 1.0              # Start fully random
+  epsilon_decay: 0.995           # Decay per step
+  epsilon_min: 0.05              # Minimum exploration
+  stop_on_reward: 10.0           # Stop training once agent consistently scores this
+  fc1_nodes: 128                 # Hidden layer size
+
+
+flappybird4:
+  env_id: "FlappyBird-v0"        # Gym environment
+  env_make_params: {}            # Optional, leave empty unless needed
+  learning_rate_a: 0.0005        # Slightly lower LR for stability
+  discount_factor_g: 0.99        # Standard gamma for DQN
+  network_sync_rate: 1000        # Steps before syncing target network
+  replay_memory_size: 50000      # Enough experiences for stability
+  mini_batch_size: 128           # Medium batch size, good for GPU
+  epsilon_init: 1.0              # Start fully random
+  epsilon_decay: 0.995           # Decay per step
+  epsilon_min: 0.05              # Minimum exploration
+  stop_on_reward: 10.0           # Stop training once agent consistently scores this
+  fc1_nodes: 128                 # Hidden layer size
+
+
+flappybird5:
+ env_id: "FlappyBird-v0"
+ replay_memory_size: 100000
+ mini_batch_size: 128
+ epsilon_init: 1
+ epsilon_decay: 0.9999
+ epsilon_min: 0.05
+ network_sync_rate: 10
+ learning_rate_a: 0.0001
+ discount_factor_g: 0.99
+ stop_on_reward: 100000
+ fc1_nodes: 512
+ env_make_params:
+   use_lidar: False
+
+
+flappybird_mega:
+ env_id: "FlappyBird-v0"
+ replay_memory_size: 500000        # Huge buffer - you have the RAM
+ mini_batch_size: 1024             # Maximum throughput
+ epsilon_init: 1.0
+ epsilon_decay: 0.99998            # Very slow decay
+ epsilon_min: 0.01
+ network_sync_rate: 1000           # Stable target network
+ learning_rate_a: 0.0002
+ discount_factor_g: 0.99
+ stop_on_reward: 100.0
+ fc1_nodes: 1024                   # Large network for complex patterns
+ env_make_params:
+  use_lidar: False
+
+
+flappybird_turbo:
+  env_id: "FlappyBird-v0"
+  replay_memory_size: 200000        # 2x larger for more diverse sampling
+  mini_batch_size: 512              # Max GPU batch size
+  epsilon_init: 1.0
+  epsilon_decay: 0.99995            # Slower decay for better exploration
+  epsilon_min: 0.01                 # Lower minimum for exploitation
+  network_sync_rate: 500            # Less frequent for faster training
+  learning_rate_a: 0.0003           # Optimized LR
+  discount_factor_g: 0.99
+  stop_on_reward: 50.0
+  fc1_nodes: 512                    # Larger network utilizes GPU better
+  env_make_params:
+    use_lidar: False
