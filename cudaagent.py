@@ -1,7 +1,4 @@
 """
-Complete DQN Training Script for Flappy Bird
-Optimized for RTX 5070 Ti + Ryzen 7 7800X3D
-
 Usage:
     python train_flappybird.py
 """
